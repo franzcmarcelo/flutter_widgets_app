@@ -3,6 +3,9 @@ import 'package:flutter_widgets_app/config/menu/menu_items.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
+
+  static const String name = 'home_screen';
+
   const HomeScreen({super.key});
 
   @override
@@ -53,7 +56,8 @@ class _CustomListTile extends StatelessWidget {
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
         // whit go_router
-        context.push(menuItem.route);
+        context.pushNamed(menuItem.route);
+        // context.push(menuItem.route);
         // context.go(menuItem.route);
 
         // native api for navigation
