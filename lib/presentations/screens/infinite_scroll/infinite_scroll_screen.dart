@@ -62,14 +62,26 @@ class _InfiniteScrollView extends StatefulWidget {
 class _InfiniteScrollViewState extends State<_InfiniteScrollView> {
 
   final ScrollController scrollController = ScrollController();
-  final List<int> imagesIds = [11, 12, 13, 14, 15, 16, 17, 18, 19, 10];
+  final List<int> imagesIds = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
   bool isMounted = true;
 
-  void addImages({ int volumen = 5 }) {
-    final lastId = imagesIds.last;
+  void addImages({required int lastId, int volumen = 5}) {
     for (int i = 1; i <= volumen; i++) {
       imagesIds.add(lastId + i);
     }
+  }
+
+  void showMoreContent() {
+    bool until150pixelsNearToFinal = scrollController.position.pixels + 150 <= scrollController.position.maxScrollExtent;
+      if (until150pixelsNearToFinal) return;
+
+    double pixelsToMove = scrollController.position.maxScrollExtent + 120;
+
+    scrollController.animateTo(
+      pixelsToMove,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.fastOutSlowIn
+    );
   }
 
   Future loadNextPage() async {
@@ -78,7 +90,24 @@ class _InfiniteScrollViewState extends State<_InfiniteScrollView> {
 
     await Future.delayed(const Duration(seconds: 2));
     if (!isMounted) return;
-    addImages();
+    final lastId = imagesIds.last;
+    addImages(lastId: lastId);
+
+    widget.setLoading(false);
+
+    showMoreContent();
+  }
+
+  Future pullToRefresh() async {
+    if (widget.isLoading) return;
+    widget.setLoading(true);
+
+    await Future.delayed(const Duration(seconds: 2));
+    if (!isMounted) return;
+
+    final lastId = imagesIds.last;
+    imagesIds.clear();
+    addImages(lastId: lastId, volumen: 10);
 
     widget.setLoading(false);
   }
@@ -87,7 +116,8 @@ class _InfiniteScrollViewState extends State<_InfiniteScrollView> {
   void initState() {
     super.initState();
     scrollController.addListener(() {
-      if (scrollController.position.pixels >= scrollController.position.maxScrollExtent - 500) {
+      bool from500pixelesNearToFinal = scrollController.position.pixels >= scrollController.position.maxScrollExtent - 500;
+      if (from500pixelesNearToFinal) {
         loadNextPage();
       }
     });
@@ -96,9 +126,7 @@ class _InfiniteScrollViewState extends State<_InfiniteScrollView> {
   @override
   void dispose() {
     scrollController.dispose();
-    setState(() {
-      isMounted = false;
-    });
+    widget.setLoading(false);
     super.dispose();
   }
 
@@ -107,18 +135,23 @@ class _InfiniteScrollViewState extends State<_InfiniteScrollView> {
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: ListView.builder(
-        controller: scrollController,
-        itemCount: imagesIds.length,
-        itemBuilder: (context, index) {
-          return FadeInImage(
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: 300,
-            placeholder: const AssetImage('assets/images/jar-loading.gif'),
-            image: NetworkImage('https://picsum.photos/id/${ imagesIds[index] }/200/300')
-          );
-        },
+      child: RefreshIndicator(
+        edgeOffset: 10,
+        strokeWidth: 2,
+        onRefresh: pullToRefresh,
+        child: ListView.builder(
+          controller: scrollController,
+          itemCount: imagesIds.length,
+          itemBuilder: (context, index) {
+            return FadeInImage(
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 300,
+              placeholder: const AssetImage('assets/images/jar-loading.gif'),
+              image: NetworkImage('https://picsum.photos/id/${ imagesIds[index] }/200/300')
+            );
+          },
+        ),
       ),
     );
   }

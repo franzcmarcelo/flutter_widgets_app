@@ -42,7 +42,7 @@ const List<MenuItem> appMenuItems = [
   ),
   MenuItem(
     title: 'Infinite Scroll',
-    subTitle: 'Infinite scroll list',
+    subTitle: 'Infinite scroll list and pull to refresh',
     route: InfiniteScrollScreen.name,
     icon: Icons.list,
   ),
