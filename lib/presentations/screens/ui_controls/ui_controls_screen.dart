@@ -26,7 +26,7 @@ class _UiControlsView extends StatefulWidget {
 
 enum _Transportation { car, bike, bus, train }
 
-List<Map<String, dynamic>> _transportationData = [
+final List<Map<String, dynamic>> _transportationData = [
   { 'title': 'By car', 'subtitle': 'Travel by car', 'value': _Transportation.car },
   { 'title': 'By bike', 'subtitle': 'Travel by bike', 'value': _Transportation.bike },
   { 'title': 'By bus', 'subtitle': 'Travel by bus', 'value': _Transportation.bus },
