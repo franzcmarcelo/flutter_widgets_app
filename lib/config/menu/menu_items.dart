@@ -28,4 +28,40 @@ const List<MenuItem> appMenuItems = [
     route: CardsScreen.name,
     icon: Icons.credit_card,
   ),
+  MenuItem(
+    title: 'Animated',
+    subTitle: 'Animations',
+    route: AnimatedScreen.name,
+    icon: Icons.animation,
+  ),
+  MenuItem(
+    title: 'Tutorial',
+    subTitle: 'App tutorial',
+    route: AppTutorialScreen.name,
+    icon: Icons.school,
+  ),
+  MenuItem(
+    title: 'Infinite Scroll',
+    subTitle: 'Infinite scroll list',
+    route: InfiniteScrollScreen.name,
+    icon: Icons.list,
+  ),
+  MenuItem(
+    title: 'Progress',
+    subTitle: 'Progress indicators',
+    route: ProgressScreen.name,
+    icon: Icons.hourglass_bottom,
+  ),
+  MenuItem(
+    title: 'Snackbar',
+    subTitle: 'Snackbar notifications',
+    route: SnackbarScreen.name,
+    icon: Icons.notifications,
+  ),
+  MenuItem(
+    title: 'UI Controls',
+    subTitle: 'UI controls',
+    route: UiControlsScreen.name,
+    icon: Icons.settings,
+  ),
 ];
