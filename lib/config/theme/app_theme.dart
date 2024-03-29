@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const Map<String, Color> colors = {
-  'primary': Colors.deepPurple,
+  'primary': Colors.indigoAccent,
   'secondary': Colors.teal,
   'tertiary': Colors.blue,
 };
