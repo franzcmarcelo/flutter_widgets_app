@@ -17,6 +17,12 @@ class MenuItem {
 
 const List<MenuItem> appMenuItems = [
   MenuItem(
+    title: 'Counter',
+    subTitle: 'A simple counter',
+    route: CounterScreen.name,
+    icon: Icons.add,
+  ),
+  MenuItem(
     title: 'Buttons',
     subTitle: 'Different types of buttons',
     route: ButtonsScreen.name,

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_widgets_app/config/theme/app_theme.dart';
 import 'package:flutter_widgets_app/config/router/app_router.dart';
 
@@ -13,7 +14,11 @@ class MyHttpOverrides extends HttpOverrides{
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
-  runApp(const MainApp());
+  runApp(
+    const ProviderScope(
+      child: MainApp()
+    )
+  );
 }
 
 class MainApp extends StatelessWidget {

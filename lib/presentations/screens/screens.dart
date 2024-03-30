@@ -7,3 +7,4 @@ export 'package:flutter_widgets_app/presentations/screens/infinite_scroll/infini
 export 'package:flutter_widgets_app/presentations/screens/progress/progress_screen.dart';
 export 'package:flutter_widgets_app/presentations/screens/snackbar/snackbar_screen.dart';
 export 'package:flutter_widgets_app/presentations/screens/ui_controls/ui_controls_screen.dart';
+export 'package:flutter_widgets_app/presentations/screens/counter/counter_screen.dart';
