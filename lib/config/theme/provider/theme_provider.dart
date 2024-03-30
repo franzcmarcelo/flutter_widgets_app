@@ -1,25 +1,28 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_widgets_app/config/theme/app_theme.dart';
+import 'package:flutter_widgets_app/config/theme/constants/constants.dart';
 
-final isDarkModeProvider = StateProvider<bool>((ref) => false);
-
-const String defaultColorTheme = 'primary';
-
-const Map<String, Color> themeColors = {
-  defaultColorTheme: Colors.indigoAccent,
-  'secondary': Colors.teal,
-  'tertiary': Colors.blue,
-  'quaternary': Colors.purple,
-  'quinary': Colors.green,
-  'senary': Colors.orange,
-  'septenary': Colors.red,
-  'octonary': Colors.pink,
-  'nonary': Colors.amber,
-  'denary': Colors.cyan,
-  'undenary': Colors.lime,
-};
-
+// inmutable
 final themeColorsProvider = Provider((ref) => themeColors);
 
+// states
+final isDarkModeProvider = StateProvider<bool>((ref) => false);
 final themeColorSelectedProvider = StateProvider<String>((ref) => defaultColorTheme);
 
+// state notifier <notifier, state>
+final themeNotifierProvider = StateNotifierProvider<ThemeNotifier, AppTheme>((ref) {
+  return ThemeNotifier();
+});
+
+class ThemeNotifier extends StateNotifier<AppTheme> {
+
+  ThemeNotifier(): super(AppTheme());
+
+  void toggleDarkMode() {
+    state = state.copyWith(isDarkMode: !state.isDarkMode);
+  }
+
+  void changeColorTheme(String themeColor) {
+    state = state.copyWith(themeColorSelected: themeColor);
+  }
+}

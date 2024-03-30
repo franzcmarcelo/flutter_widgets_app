@@ -1,7 +1,7 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_widgets_app/config/theme/constants/constants.dart';
 import 'package:flutter_widgets_app/config/theme/provider/theme_provider.dart';
 
 class ThemeChangerScreen extends ConsumerWidget {
@@ -13,7 +13,7 @@ class ThemeChangerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final bool isDarkMode = ref.watch(isDarkModeProvider);
+    final bool isDarkMode = ref.watch(themeNotifierProvider).isDarkMode;
 
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +24,7 @@ class ThemeChangerScreen extends ConsumerWidget {
               isDarkMode ? Icons.dark_mode : Icons.light_mode
             ),
             onPressed: () {
-              ref.read(isDarkModeProvider.notifier).update((state) => !state);
+              ref.read(themeNotifierProvider.notifier).toggleDarkMode();
             }
           )
         ],
@@ -41,8 +41,8 @@ class _ThemeChangerView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
 
-    final bool isDarkMode = ref.watch(isDarkModeProvider);
-    final String themeColorSelected = ref.watch(themeColorSelectedProvider);
+    final bool isDarkMode = ref.watch(themeNotifierProvider).isDarkMode;
+    final String themeColorSelected = ref.watch(themeNotifierProvider).themeColorSelected;
     final Map<String, Color> themeColors = ref.watch(themeColorsProvider);
 
     return Column(
@@ -58,15 +58,15 @@ class _ThemeChangerView extends ConsumerWidget {
                 onPressed: () {
                   final random = Random();
                   final randomIndexColor = random.nextInt(themeColors.length);
-                  ref.read(themeColorSelectedProvider.notifier).update((state) => themeColors.keys.elementAt(randomIndexColor));
+                  ref.read(themeNotifierProvider.notifier).changeColorTheme(themeColors.keys.elementAt(randomIndexColor));
                 },
               ),
               TextButton.icon(
                 label: const Text('Reset'),
                 icon: const Icon(Icons.refresh),
                 onPressed: () {
-                  if(themeColorSelected != defaultColorTheme) ref.read(themeColorSelectedProvider.notifier).update((state) => defaultColorTheme);
-                  if(isDarkMode) ref.read(isDarkModeProvider.notifier).update((state) => false);
+                  if(themeColorSelected != defaultColorTheme) ref.read(themeNotifierProvider.notifier).changeColorTheme(defaultColorTheme);
+                  if(isDarkMode) ref.read(themeNotifierProvider.notifier).toggleDarkMode();
                 },
               )
             ]
@@ -93,7 +93,7 @@ class _ThemeChangerView extends ConsumerWidget {
                 groupValue: themeColorSelected,
                 activeColor: color,
                 onChanged: (value) {
-                  ref.read(themeColorSelectedProvider.notifier).update((state) => theme);
+                  ref.read(themeNotifierProvider.notifier).changeColorTheme(theme);
                 },
               );
             }).toList()[index];
