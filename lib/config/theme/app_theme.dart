@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_widgets_app/presentations/providers/theme_provider.dart';
+import 'package:flutter_widgets_app/config/theme/provider/theme_provider.dart';
 
 class AppTheme {
 
