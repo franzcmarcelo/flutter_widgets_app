@@ -8,3 +8,4 @@ export 'package:flutter_widgets_app/presentations/screens/progress/progress_scre
 export 'package:flutter_widgets_app/presentations/screens/snackbar/snackbar_screen.dart';
 export 'package:flutter_widgets_app/presentations/screens/ui_controls/ui_controls_screen.dart';
 export 'package:flutter_widgets_app/presentations/screens/counter/counter_screen.dart';
+export 'package:flutter_widgets_app/presentations/screens/theme_changer/theme_changer_screen.dart';

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-
-const Map<String, Color> colors = {
-  'primary': Colors.indigoAccent,
-  'secondary': Colors.teal,
-  'tertiary': Colors.blue,
-};
+import 'package:flutter_widgets_app/presentations/providers/theme_provider.dart';
 
 class AppTheme {
 
-  final String selectedColor;
+  final String themeColorSelected;
+  final bool isDarkMode;
 
   AppTheme({
-    this.selectedColor = 'primary',
+    this.themeColorSelected = defaultColorTheme,
+    this.isDarkMode = false,
   })
-  : assert(colors.containsKey(selectedColor), 'Color $selectedColor is not defined in the theme');
+  : assert(
+    themeColors.keys.contains(themeColorSelected), 'Color $themeColorSelected is not defined in the theme'
+  );
 
   ThemeData getTheme() => ThemeData(
     useMaterial3: true,
-    colorSchemeSeed: colors[selectedColor],
+    brightness: isDarkMode ? Brightness.dark : Brightness.light,
+    colorSchemeSeed: themeColors[themeColorSelected],
     appBarTheme: const AppBarTheme(
       centerTitle: false,
     )

@@ -23,6 +23,12 @@ const List<MenuItem> appMenuItems = [
     icon: Icons.add,
   ),
   MenuItem(
+    title: 'Theme Changer',
+    subTitle: 'Change the app theme',
+    route: ThemeChangerScreen.name,
+    icon: Icons.color_lens,
+  ),
+  MenuItem(
     title: 'Buttons',
     subTitle: 'Different types of buttons',
     route: ButtonsScreen.name,

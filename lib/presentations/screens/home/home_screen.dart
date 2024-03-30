@@ -49,12 +49,12 @@ class _CustomListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final colors = Theme.of(context).colorScheme;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return ListTile(
       title: Text(menuItem.title),
       subtitle: Text(menuItem.subTitle),
-      leading: Icon(menuItem.icon, color: colors.primary),
+      leading: Icon(menuItem.icon, color: colorScheme.primary),
       trailing: const Icon(Icons.arrow_forward_ios),
       onTap: () {
         // whit go_router
